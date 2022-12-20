@@ -1,0 +1,68 @@
+POST {{baseUrl}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "yildiz@project.com",
+    "password": "12345"
+}
+
+###
+
+POST {{baseUrl}}/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "UserFirstName": "ismet",
+    "UserLastName": "kizgin",
+    "UserEmail": "fi@project.com",
+    "UserPassword": "password"
+}
+###
+
+DELETE {{baseUrl}}/my-account HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "UserPassword": "password"
+}
+
+###
+
+PUT {{baseUrl}}/my-account HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "UserFirstName": "ismet",
+    "UserLastName": "kizgin",
+    "UserEmail": "fi@project.com",
+    "UserPassword": "password"
+  }
+
+###
+
+PUT {{baseUrl}}/change-password HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "UserPassword": "password",
+    "NewPassword": "kadirc"
+}
+
+###
+
+POST {{baseUrl}}/password-control HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "UserPassword": "kadirc"
+}
+
+###
+
+GET {{baseUrl}}/token-decode HTTP/1.1
+Content-Type: application/json
+token: {{token}}
