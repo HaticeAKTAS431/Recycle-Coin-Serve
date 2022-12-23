@@ -1,0 +1,15 @@
+POST {{baseUrl}}/money-transfer HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "recipientUserId": 6,
+    "transferType": 1,
+    "transferAmount": 12.12
+}
+
+###
+
+GET {{baseUrl}}/money-transfer HTTP/1.1
+Content-Type: application/json
+token: {{token}}
