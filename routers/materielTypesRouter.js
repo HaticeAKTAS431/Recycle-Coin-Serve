@@ -100,14 +100,12 @@ router.get(
   materielTypesValidator.paramId,
   async (req, res) => {
     try {
-      const response = await materielTypesTransactions.selectAsync({
-        where: req.params,
-      });
+      const response = await materielTypesTransactions.findOneAsync(req.params);
 
-      if (!response.length)
+      if (!response)
         throw errorSender.errorObject(HttpStatusCode.NOT_FOUND, "Not found!");
 
-      res.json(response[0]);
+      res.json(response);
     } catch (error) {
       res
         .status(error.status || HttpStatusCode.INTERNAL_SERVER_ERROR)
