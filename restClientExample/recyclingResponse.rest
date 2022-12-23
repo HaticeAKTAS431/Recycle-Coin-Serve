@@ -1,0 +1,45 @@
+POST {{baseUrl}}/recycling-response HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "materielName": "meryemx",
+    "materielTypeId": 1,
+    "price": 1
+}
+
+###
+
+PUT {{baseUrl}}/recycling-response HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "materielName": "meryemxxx",
+    "materielTypeId": 1,
+    "price": 1,
+    "id": 1
+}
+
+###
+
+DELETE {{baseUrl}}/recycling-response HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "id": 1
+}
+
+
+###
+
+GET {{baseUrl}}/recycling-response?limit=10&offset=0 HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+###
+
+GET {{baseUrl}}/recycling-response/2 HTTP/1.1
+Content-Type: application/json
+token: {{token}}

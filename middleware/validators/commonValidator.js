@@ -23,7 +23,7 @@ class CommonValidator {
     try {
       await joi
         .object({
-          Id: joi.number().required(),
+          id: joi.number().required(),
         })
         .validateAsync(req.body);
       next();
@@ -36,9 +36,9 @@ class CommonValidator {
     try {
       await joi
         .object({
-          Id: joi.number().min(1).required(),
+          id: joi.number().min(1).required(),
         })
-        .validateAsync({ Id: parseInt(req.params.Id) });
+        .validateAsync({ id: parseInt(req.params.id) });
       next();
     } catch (err) {
       res.status(HttpStatusCode.EXPECTATION_FAILED).send(err.message);
