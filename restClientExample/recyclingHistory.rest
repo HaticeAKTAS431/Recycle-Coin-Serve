@@ -1,0 +1,21 @@
+POST {{baseUrl}}/recycling-history HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "userId": 25,
+    "items": [{
+        "recyclingResponseId": 2,
+        "count": 2
+    },
+    {
+        "recyclingResponseId": 3,
+        "count": 1
+    }]
+}
+
+###
+
+GET {{baseUrl}}/recycling-history HTTP/1.1
+Content-Type: application/json
+token: {{token}}
