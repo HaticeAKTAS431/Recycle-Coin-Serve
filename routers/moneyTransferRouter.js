@@ -21,12 +21,12 @@ router.post(
         senderUserId: req.decode.userID,
       });
 
-      if (response.affectedRows == 0)
+      if (response[1].affectedRows == 2)
         throw errorSender.errorObject(
           HttpStatusCode.BAD_REQUEST,
           "Insufficient balance!"
         );
-      res.json(response);
+      res.json("Transfer successful.");
     } catch (error) {
       console.log({ error });
       res
