@@ -6,7 +6,7 @@ const userTransactions = TransactionsFactory.creating("userTransactions");
 const authValidator = validators.authValidator;
 const tokenControl = verifyToken.tokenControl;
 const HttpStatusCode = require("http-status-codes");
-const { errorSender, random, smtp } = require("../utils");
+const { errorSender, random, smtp, nvi } = require("../utils");
 
 router.post("/login", authValidator.login, async (req, res) => {
   try {
@@ -35,13 +35,29 @@ router.post("/login", authValidator.login, async (req, res) => {
 router.post("/register", authValidator.register, async (req, res) => {
   try {
     if (
+      !(await nvi.TCIdentityInquiryAsync({
+        identityNo: req.body.identityNo,
+        firstName: req.body.firstName,
+        lastName: req.body.surName,
+        birthYear: req.body.birthyear,
+      }))
+    )
+      throw errorSender.errorObject(
+        HttpStatusCode.BAD_REQUEST,
+        "Register the system with a real user!"
+      );
+
+    if (
       await userTransactions.findOneAsync({
-        email: req.body.email,
+        _or: {
+          email: req.body.email,
+          identityNo: req.body.identityNo,
+        },
       })
     )
       throw errorSender.errorObject(
         HttpStatusCode.BAD_REQUEST,
-        "This e-mail address is registered in the system!"
+        "This e-mail address or ID number is registered in the system!"
       );
 
     const user = await userTransactions.insertAsync(req.body);

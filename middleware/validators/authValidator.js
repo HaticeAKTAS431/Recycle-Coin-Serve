@@ -28,6 +28,8 @@ class AuthValidator {
           email: joi.string().email().max(256).required(),
           password: joi.string().max(256).required(),
           userType: joi.string().max(50).required(),
+          birthyear: joi.number().required(),
+          identityNo: joi.string().required(),
         })
         .validateAsync(req.body);
       next();
