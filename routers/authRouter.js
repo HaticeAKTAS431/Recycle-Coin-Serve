@@ -7,6 +7,7 @@ const authValidator = validators.authValidator;
 const tokenControl = verifyToken.tokenControl;
 const HttpStatusCode = require("http-status-codes");
 const { errorSender, random, smtp, nvi } = require("../utils");
+var crypto = require("crypto");
 
 router.post("/login", authValidator.login, async (req, res) => {
   try {
@@ -20,6 +21,7 @@ router.post("/login", authValidator.login, async (req, res) => {
     const payload = {
       userID: result.id,
       userType: result.userType,
+      hash: result.hash,
     };
     const token = jwt.sign(payload, req.app.get("api_key"), {
       expiresIn: "7d",
@@ -65,6 +67,20 @@ router.post("/register", authValidator.register, async (req, res) => {
       throw errorSender.errorObject(
         HttpStatusCode.BAD_REQUEST,
         "Something went wrong!"
+      );
+    const userUpdate = await userTransactions.updateAsync(
+      {
+        hash: crypto
+          .createHash("sha256")
+          .update(user.insertId.toString())
+          .digest("hex"),
+      },
+      { id: user.insertId }
+    );
+    if (!userUpdate)
+      throw errorSender.errorObject(
+        HttpStatusCode.BAD_REQUEST,
+        "Something went wrong wih hashing user!"
       );
 
     res.json("User registired succesfully.");
