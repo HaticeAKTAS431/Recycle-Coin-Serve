@@ -27,7 +27,6 @@ class AuthValidator {
           phone: joi.string().max(25).required(),
           email: joi.string().email().max(256).required(),
           password: joi.string().max(256).required(),
-          userTypeId: joi.number().required(),
           birthyear: joi.number().required(),
           identityNo: joi.string().required(),
         })
